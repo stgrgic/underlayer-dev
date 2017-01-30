@@ -1,0 +1,85 @@
+// Flex container
+.flex-container {
+    display flex
+    flex-direction row
+    flex-wrap wrap
+    // justify-content flex-start
+    width 100%
+    margin 0 auto
+    // padding 0 ($gutter/2)
+    list-style none
+    
+    &.j-center {
+        justify-content center
+    }
+    &.j-between {
+        justify-content space-between
+    }
+    &.a-center {
+        align-items center
+    }
+    &.a-end {
+        align-items flex-end
+    }
+    &.a-start {
+        align-items flex-start
+    }
+}
+
+.column {
+    flex-direction column
+}
+
+// .-a-center {
+//     align-items center
+// }
+
+// Width od .fc
+// sirina od container za flexbox
+//Nije mnozina ali jebiga
+for size, value in ($breakpoint) {
+    .w-{size}{
+        max-width value
+        width 100%
+        margin 0 auto
+        padding 0 ($gutter/2)
+    }
+}
+
+// Box defaults
+.box {
+    // display block
+}
+
+// I tried a lot of different ways of dealing
+// with breakpoints, this seams most reasonable
+// for now
+
+//Promijenio sam ime u containers, jer ima
+//vise smisla, u odnosu kada
+//zelim koristiti breakpoint
+
+for size, value in ($containers) {
+    +above(value) {
+        for column in ($grid-columns..1) {
+            .d{size}-{column} {
+               >.box {
+                   width (100/column)%
+               } 
+            }
+        }
+    }
+}
+
+
+.flex-row {
+    display flex
+    flex-direction row
+    flex-wrap wrap
+    width 100%
+    margin 0 auto
+}
+
+
+
+

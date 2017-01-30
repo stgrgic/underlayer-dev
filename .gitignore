@@ -1,0 +1,6 @@
+# Dependency directories
+node_modules
+
+# TODO - remove when finished
+test/
+docs/

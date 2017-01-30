@@ -1,0 +1,36 @@
+//
+// Mixins
+//
+
+//Clearfix
+// This way clearfix can be used as a class
+// and as a extend inide other class
+.cf {
+    *zoom: 1;
+    &:before, &:after {
+        content: " ";
+        display: table;
+    }
+    &:after {
+         clear: both;
+    }
+}
+
+clearfix() {
+    *zoom: 1;
+    &:before, &:after {
+        content: " ";
+        display: table;
+    }
+    &:after {
+         clear: both;
+    }
+}
+
+no-select(){
+    -webkit-touch-callout: none
+    -webkit-user-select: none
+    -moz-user-select: none
+    -ms-user-select: none
+    user-select: none
+}
