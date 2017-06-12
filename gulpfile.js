@@ -23,7 +23,7 @@ var errorHandler = function (title) {
 };
 
 gulp.task("build:css", function(){
-    return gulp.src(options.src + "/underlayer.styl")
+    return gulp.src("index.styl")
         .pipe(sourcemaps.init())
         .pipe(stylus({
           "include css": true
@@ -33,6 +33,7 @@ gulp.task("build:css", function(){
             browsers: ["last 10 versions"],
             cascade: false }))
         .pipe(sourcemaps.write("./"))
+        .pipe(gulp.dest(options.dist + "/css"))
         .pipe(gulp.dest(options.test + "/css"))
         .pipe(browserSync.stream())
         .on("error", gutil.log);
@@ -42,7 +43,6 @@ gulp.task("build:css", function(){
 gulp.task("clean", function(){
     return del("test/css");
 })
-
 
 gulp.task("build", function() {
     runSequence("clean","build:css")
@@ -59,9 +59,13 @@ gulp.task("test", ["build"], function() {
   // Watch app .styl files, changes are piped to browserSync
   gulp.watch(options.src + "/**/*.styl", ["build:css"]);
 
+  gulp.watch("index.styl", ["build:css"]);
+
   // Watch test html files
   gulp.watch(options.test + "/**/*.html", ["build:css"]);
 });
+
+
 
 
 

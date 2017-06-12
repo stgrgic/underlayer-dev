@@ -1,76 +1,77 @@
-// Flex container
-.flex-container {
-    display flex
-    flex-direction row
-    flex-wrap wrap
-    // justify-content flex-start
-    width 100%
-    margin 0 auto
-    // padding 0 ($gutter/2)
-    list-style none
+// // Flex container
+// .flex-container {
+//     display flex
+//     flex-direction row
+//     flex-wrap wrap
+//     // justify-content flex-start
+//     width 100%
+//     margin 0 auto
+//     // padding 0 ($gutter/2)
+//     list-style none
     
-    &.j-center {
-        justify-content center
-    }
-    &.j-between {
-        justify-content space-between
-    }
-    &.a-center {
-        align-items center
-    }
-    &.a-end {
-        align-items flex-end
-    }
-    &.a-start {
-        align-items flex-start
-    }
-}
-
-.column {
-    flex-direction column
-}
-
-// .-a-center {
-//     align-items center
+//     &.j-center {
+//         justify-content center
+//     }
+//     &.j-between {
+//         justify-content space-between
+//     }
+//     &.a-center {
+//         align-items center
+//     }
+//     &.a-end {
+//         align-items flex-end
+//     }
+//     &.a-start {
+//         align-items flex-start
+//     }
 // }
 
-// Width od .fc
-// sirina od container za flexbox
-//Nije mnozina ali jebiga
-for size, value in ($breakpoint) {
-    .w-{size}{
-        max-width value
-        width 100%
-        margin 0 auto
-        padding 0 ($gutter/2)
-    }
-}
+// .column {
+//     flex-direction column
+// }
 
-// Box defaults
-.box {
-    // display block
-}
+// // .-a-center {
+// //     align-items center
+// // }
 
-// I tried a lot of different ways of dealing
-// with breakpoints, this seams most reasonable
-// for now
+// // Width od .fc
+// // sirina od container za flexbox
+// //Nije mnozina ali jebiga
+// for size, value in ($breakpoint) {
+//     .w-{size}{
+//         max-width value
+//         width 100%
+//         margin 0 auto
+//         padding 0 ($gutter/2)
+//     }
+// }
 
-//Promijenio sam ime u containers, jer ima
-//vise smisla, u odnosu kada
-//zelim koristiti breakpoint
+// // Box defaults
+// .box {
+//     // display block
+// }
 
-for size, value in ($containers) {
-    +above(value) {
-        for column in ($grid-columns..1) {
-            .d{size}-{column} {
-               >.box {
-                   width (100/column)%
-               } 
-            }
-        }
-    }
-}
+// // I tried a lot of different ways of dealing
+// // with breakpoints, this seams most reasonable
+// // for now
 
+// //Promijenio sam ime u containers, jer ima
+// //vise smisla, u odnosu kada
+// //zelim koristiti breakpoint
+
+// for size, value in ($containers) {
+//     +above(value) {
+//         for column in ($grid-columns..1) {
+//             .d{size}-{column} {
+//                >.box {
+//                    width (100/column)%
+//                } 
+//             }
+//         }
+//     }
+// }
+
+// ----------------- flex grid
 
 .flex-row {
     display flex
@@ -78,8 +79,56 @@ for size, value in ($containers) {
     flex-wrap wrap
     width 100%
     margin 0 auto
+    >.box {
+        padding 0 0.5rem
+        width 100%
+    }
+}
+.flex-column {
+    display flex
+    flex-direction column
+    flex-wrap wrap
+    width 100%
+    margin 0 auto
+    >.box {
+        // padding 15px 0
+        width 100%
+        flex 1 1 auto
+        &:not(:last-child){
+            margin-bottom 1rem
+        }
+    }
+}
+
+.flex-row{
+    >.box {
+        margin-bottom 1rem
+    }
+}
+
+for breakpoint, pixels in ($flex-breakpoints) {
+    +above(pixels) {
+        for column in ($grid-columns..1) {
+
+            // Global divide class, that divides boxes iside container
+            .flex-row.above-{breakpoint}-divide-{column} {
+                > .box {
+                    width (100/column)%
+                }
+            }
+            // Width for individula column
+            .above-{breakpoint}-width-{column} {
+                width (100/($grid-columns/column))% !important
+                // padding-left 15px
+                // padding-right 15px
+            }
+        }
+    }
 }
 
 
-
+.width-padding-fix {
+    margin 0 -15px
+    width calc(100% + 30px)
+}
 
